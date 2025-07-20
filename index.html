@@ -1,26 +1,60 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Anime Waifu Generator</title>
-  <meta name="description" content="Generate your perfect anime waifu — chibi or mature. Click the button and enjoy the glow!" />
-  <link rel="icon" href="favicon.png" />
-  <link href="https://fonts.googleapis.com/css2?family=Mochiy+Pop+P+One&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      background-color: #1a1a2e;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #fff;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+    }
+    h1 {
+      font-size: 2.5rem;
+      margin-top: 2rem;
+    }
+    #waifu-img {
+      margin-top: 2rem;
+      max-width: 90%;
+      height: auto;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(255, 255, 255, 0.2);
+    }
+    button {
+      margin-top: 2rem;
+      padding: 1rem 2rem;
+      font-size: 1.2rem;
+      background-color: #e94560;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #ff2e63;
+    }
+  </style>
 </head>
 <body>
-  <main>
-    <h1>✨ Anime Waifu Generator ✨</h1>
-    <div id="card">
-      <div id="image-wrapper">
-        <img id="waifu-img" src="images/waifu1.jpg" alt="Anime Waifu" />
-        <div id="loader" class="hidden"></div>
-      </div>
-      <button id="generate-btn">Generate Waifu</button>
-    </div>
-    <footer>© 2025 <a href="/">AnimeWaifuGenerator.com</a></footer>
-  </main>
-  <script src="script.js"></script>
+  <h1>Anime Waifu Generator 💕</h1>
+  <button onclick="generateWaifu()">Generate Waifu</button>
+  <div>
+    <img id="waifu-img" src="https://i.waifu.pics/nRrGwtG.png" alt="Random Waifu" />
+  </div>
+
+  <script>
+    function generateWaifu() {
+      fetch("https://api.waifu.pics/sfw/waifu")
+        .then(response => response.json())
+        .then(data => {
+          document.getElementById("waifu-img").src = data.url;
+        });
+    }
+  </script>
 </body>
 </html>
