@@ -16,12 +16,10 @@ class WaifuGenerator {
 
     bindEvents() {
         const generateBtn = document.getElementById('generate-btn');
-        const downloadBtn = document.getElementById('download-btn');
         const shareBtn = document.getElementById('share-btn');
         const waifuImage = document.getElementById('waifu-image');
 
         generateBtn.addEventListener('click', () => this.generateWaifu());
-        downloadBtn.addEventListener('click', () => this.downloadImage());
         shareBtn.addEventListener('click', () => this.shareImage());
         
         waifuImage.addEventListener('load', () => this.onImageLoad());
@@ -154,11 +152,9 @@ class WaifuGenerator {
 
     showLoading() {
         const loadingOverlay = document.getElementById('loading-overlay');
-        const downloadBtn = document.getElementById('download-btn');
         const shareBtn = document.getElementById('share-btn');
         
         loadingOverlay.classList.remove('hidden');
-        downloadBtn.style.display = 'none';
         shareBtn.style.display = 'none';
         
         const loadingMessages = [
@@ -181,10 +177,8 @@ class WaifuGenerator {
 
     onImageLoad() {
         this.hideLoading();
-        const downloadBtn = document.getElementById('download-btn');
         const shareBtn = document.getElementById('share-btn');
         
-        downloadBtn.style.display = 'flex';
         shareBtn.style.display = 'flex';
         
         const waifuContainer = document.querySelector('.waifu-container');
@@ -208,28 +202,6 @@ class WaifuGenerator {
         }, 3000);
     }
 
-    async downloadImage() {
-        if (!this.currentImageUrl) return;
-        
-        try {
-            const response = await fetch(this.currentImageUrl);
-            const blob = await response.blob();
-            const url = window.URL.createObjectURL(blob);
-            
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `waifu-${Date.now()}.jpg`;
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            window.URL.revokeObjectURL(url);
-            
-            this.showNotification('Image downloaded successfully! 📥');
-        } catch (error) {
-            console.error('Download failed:', error);
-            this.showNotification('Download failed. Please try again! ❌');
-        }
-    }
 
     shareImage() {
         if (!this.currentImageUrl) return;
