@@ -1,124 +1,190 @@
 
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Anime Waifu Generator</title>
-    <style>
-      body {
-        margin: 0;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        background: linear-gradient(to bottom right, #1f1f2e, #2a2a3b);
-        color: #fff;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        min-height: 100vh;
-      }
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>✨ Anime Waifu Generator - Create Your Perfect Waifu ✨</title>
+    <meta name="description" content="Generate stunning anime waifus with our AI-powered generator! Choose from maid, neko, bunny girl, and more categories. Free anime character generator.">
+    <meta name="keywords" content="anime, waifu, generator, AI, maid, neko, bunny girl, anime characters, free">
+    <meta property="og:title" content="✨ Anime Waifu Generator - Create Your Perfect Waifu ✨">
+    <meta property="og:description" content="Generate stunning anime waifus with our AI-powered generator! Choose from multiple categories.">
+    <meta property="og:image" content="https://animewaifugenerator.com/og-image.jpg">
+    <meta property="og:url" content="https://animewaifugenerator.com">
+    <meta name="twitter:card" content="summary_large_image">
+    
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header with Logo -->
+    <header class="main-header">
+        <div class="logo-container">
+            <i class="fas fa-heart logo-icon"></i>
+            <h1>Anime Waifu Generator</h1>
+        </div>
+        <nav class="header-nav">
+            <a href="#generator" class="nav-link">Generator</a>
+            <a href="#gallery" class="nav-link">Gallery</a>
+            <a href="#donate" class="nav-link">Support</a>
+        </nav>
+    </header>
 
-      header {
-        padding: 1.5rem;
-        font-size: 2.2rem;
-        font-weight: bold;
-        color: #ff85c0;
-        text-shadow: 1px 1px 3px #000;
-      }
-
-      #waifu-container {
-        position: relative;
-        width: 300px;
-        height: 400px;
-        background: #1e1e2f;
-        border-radius: 20px;
-        box-shadow: 0 0 15px rgba(255, 133, 192, 0.5);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        overflow: hidden;
-      }
-
-      #waifu-image {
-        width: 100%;
-        height: 100%;
-        border-radius: 15px;
-        object-fit: cover;
-        transition: filter 0.5s ease, opacity 0.5s ease;
-        filter: blur(10px);
-        opacity: 0.7;
-      }
-
-      #waifu-image.loaded {
-        filter: blur(0);
-        opacity: 1;
-      }
-
-      #loading-text {
-        font-size: 1.2rem;
-        color: #ffacd6;
-        font-weight: bold;
-        margin-top: 1rem;
-        display: none;
-      }
-
-      #generate-btn {
-        margin-top: 1.5rem;
-        padding: 0.8rem 2rem;
-        font-size: 1rem;
-        background-color: #ff85c0;
-        color: #fff;
-        border: none;
-        border-radius: 10px;
-        cursor: pointer;
-        box-shadow: 0 4px 10px rgba(255, 133, 192, 0.3);
-        transition: background-color 0.3s ease;
-      }
-
-      #generate-btn:hover {
-        background-color: #ff6fae;
-      }
-
-      #pod-banner {
-        margin-top: 2rem;
-      }
-
-      #pod-banner img {
-        max-width: 100%;
-        border-radius: 10px;
-      }
-    </style>
-  </head>
-  <body>
-    <header>Anime Waifu Generator</header>
-    <div id="waifu-container">
-      <img id="waifu-image" src="" alt="Your Waifu Appears!" />
-    </div>
-    <div id="loading-text">Generating your waifu...</div>
-    <button id="generate-btn">Generate Waifu</button>
-
-    <div id="pod-banner">
-      <a href="https://yourstore.com" target="_blank">
-        <img src="https://yourstore.com/banner.jpg" alt="Shop Anime Merch" />
-      </a>
+    <!-- Google Ads - Top Banner -->
+    <div class="ad-container ad-top">
+        <div class="ad-placeholder">
+            <!-- Google AdSense code will go here -->
+            <p>Advertisement</p>
+        </div>
     </div>
 
-    <script>
-      const image = document.getElementById("waifu-image");
-      const loadingText = document.getElementById("loading-text");
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="hero-section">
+            <h2 class="hero-title">Create Your Perfect Anime Waifu</h2>
+            <p class="hero-subtitle">Choose from multiple categories and generate stunning anime characters instantly!</p>
+        </div>
 
-      async function generateWaifu() {
-        loadingText.style.display = "block";
-        image.classList.remove("loaded");
-        image.src = "https://api.waifu.pics/sfw/waifu?" + new Date().getTime();
-      }
+        <!-- Generator Section -->
+        <section id="generator" class="generator-section">
+            <div class="controls-container">
+                <div class="category-selector">
+                    <label for="waifu-category">Choose Category:</label>
+                    <select id="waifu-category" class="category-dropdown">
+                        <option value="waifu">Random Waifu</option>
+                        <option value="maid">Maid</option>
+                        <option value="neko">Neko</option>
+                        <option value="bunny">Bunny Girl</option>
+                        <option value="school">School Girl</option>
+                        <option value="uniform">Uniform</option>
+                        <option value="casual">Casual</option>
+                        <option value="fantasy">Fantasy</option>
+                        <option value="ecchi">Ecchi (18+)</option>
+                    </select>
+                </div>
+                
+                <div class="style-selector">
+                    <label for="art-style">Art Style:</label>
+                    <select id="art-style" class="style-dropdown">
+                        <option value="anime">Anime</option>
+                        <option value="chibi">Chibi</option>
+                        <option value="realistic">Semi-Realistic</option>
+                    </select>
+                </div>
+            </div>
 
-      image.onload = () => {
-        image.classList.add("loaded");
-        loadingText.style.display = "none";
-      };
+            <div class="waifu-display">
+                <div class="waifu-container">
+                    <img id="waifu-image" src="" alt="Your Generated Waifu" class="waifu-image">
+                    <div class="loading-overlay" id="loading-overlay">
+                        <div class="loading-spinner"></div>
+                        <p class="loading-text">Generating your perfect waifu...</p>
+                        <div class="loading-hearts">
+                            <i class="fas fa-heart"></i>
+                            <i class="fas fa-heart"></i>
+                            <i class="fas fa-heart"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="action-buttons">
+                    <button id="generate-btn" class="generate-btn">
+                        <i class="fas fa-magic"></i>
+                        Generate Waifu
+                    </button>
+                    <button id="download-btn" class="download-btn" style="display: none;">
+                        <i class="fas fa-download"></i>
+                        Download
+                    </button>
+                    <button id="share-btn" class="share-btn" style="display: none;">
+                        <i class="fas fa-share"></i>
+                        Share
+                    </button>
+                </div>
+            </div>
+        </section>
 
-      window.onload = generateWaifu;
-      document.getElementById("generate-btn").addEventListener("click", generateWaifu);
-    </script>
-  </body>
+        <!-- Daily Attire Banner -->
+        <section class="pod-banner-section">
+            <div class="banner-container">
+                <h3>🛍️ Love Anime? Check Out Our Merch!</h3>
+                <a href="https://dailyattire.co/anime" target="_blank" rel="noopener" class="pod-banner-link">
+                    <img src="https://dailyattire.co/wp-content/swift-ai/images/wp-content/uploads/2025/07/8211491113512867296_2048-1536x1536-jpeg.webp" 
+                         alt="Daily Attire - Premium Anime Merchandise" 
+                         class="pod-banner-image">
+                    <div class="banner-overlay">
+                        <p>Premium Anime Apparel & Accessories</p>
+                        <span class="shop-now-btn">Shop Now →</span>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <!-- Google Ads - Sidebar -->
+        <aside class="sidebar-ads">
+            <div class="ad-container ad-sidebar">
+                <div class="ad-placeholder">
+                    <!-- Google AdSense code will go here -->
+                    <p>Advertisement</p>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Crypto Donation Section -->
+        <section id="donate" class="donation-section">
+            <div class="donation-container">
+                <h3><i class="fab fa-bitcoin"></i> Support the Project</h3>
+                <p>Help us keep the generator running and add new features!</p>
+                <div class="crypto-options">
+                    <div class="crypto-option">
+                        <i class="fab fa-bitcoin"></i>
+                        <span>Bitcoin</span>
+                        <code class="crypto-address">1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa</code>
+                    </div>
+                    <div class="crypto-option">
+                        <i class="fab fa-ethereum"></i>
+                        <span>Ethereum</span>
+                        <code class="crypto-address">0x742d35Cc6634C0532925a3b8D4C9db4C</code>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Banner Section -->
+        <section class="contact-banner-section">
+            <div class="contact-banner">
+                <h3>📢 Advertise Here</h3>
+                <p>Reach thousands of anime fans daily!</p>
+                <a href="mailto:banner@animewaifugenerator.com" class="contact-btn">
+                    Contact us for banner placement - $27/month
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="footer-content">
+            <p>&copy; 2025 Anime Waifu Generator. Made with ❤️ for anime fans worldwide.</p>
+            <div class="social-links">
+                <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-discord"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-reddit"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Google Ads - Bottom Banner -->
+    <div class="ad-container ad-bottom">
+        <div class="ad-placeholder">
+            <!-- Google AdSense code will go here -->
+            <p>Advertisement</p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
 </html>
