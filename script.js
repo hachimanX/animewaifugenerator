@@ -1,25 +1,15 @@
 
 class WaifuGenerator {
     constructor() {
-        this.apiEndpoints = {
-            waifu: 'https://api.waifu.pics/sfw/waifu',
-            neko: 'https://api.waifu.pics/sfw/neko',
-            shinobu: 'https://api.waifu.pics/sfw/shinobu',
-            megumin: 'https://api.waifu.pics/sfw/megumin',
-            cuddle: 'https://api.waifu.pics/sfw/cuddle',
-            hug: 'https://api.waifu.pics/sfw/hug',
-            kiss: 'https://api.waifu.pics/sfw/kiss',
-            pat: 'https://api.waifu.pics/sfw/pat',
-            smile: 'https://api.waifu.pics/sfw/smile',
-            wave: 'https://api.waifu.pics/sfw/wave'
-        };
-        
+        this.availableCategories = [];
         this.currentImageUrl = '';
         this.isGenerating = false;
         this.init();
     }
 
-    init() {
+    async init() {
+        await this.fetchAvailableCategories();
+        this.populateCategoryDropdown();
         this.bindEvents();
         this.generateWaifu(); // Generate initial waifu
     }
@@ -86,9 +76,77 @@ class WaifuGenerator {
         }
     }
 
+    async fetchAvailableCategories() {
+        try {
+            this.availableCategories = [
+                'waifu', 'neko', 'shinobu', 'megumin', 'bully', 'cuddle', 'cry', 'hug', 
+                'awoo', 'kiss', 'lick', 'pat', 'smug', 'bonk', 'yeet', 'blush', 'smile', 
+                'wave', 'highfive', 'handhold', 'nom', 'bite', 'glomp', 'slap', 'kill', 
+                'kick', 'happy', 'wink', 'poke', 'dance', 'cringe'
+            ];
+        } catch (error) {
+            console.error('Error fetching categories:', error);
+            this.availableCategories = ['waifu', 'neko', 'shinobu', 'megumin'];
+        }
+    }
+
+    populateCategoryDropdown() {
+        const categorySelect = document.getElementById('waifu-category');
+        if (!categorySelect) return;
+
+        categorySelect.innerHTML = '';
+
+        this.availableCategories.forEach(category => {
+            const option = document.createElement('option');
+            option.value = category;
+            option.textContent = this.formatCategoryName(category);
+            categorySelect.appendChild(option);
+        });
+    }
+
+    formatCategoryName(category) {
+        const categoryNames = {
+            'waifu': 'Random Waifu',
+            'neko': 'Neko',
+            'shinobu': 'Shinobu',
+            'megumin': 'Megumin',
+            'bully': 'Bully',
+            'cuddle': 'Cuddle',
+            'cry': 'Cry',
+            'hug': 'Hug',
+            'awoo': 'Awoo',
+            'kiss': 'Kiss',
+            'lick': 'Lick',
+            'pat': 'Pat',
+            'smug': 'Smug',
+            'bonk': 'Bonk',
+            'yeet': 'Yeet',
+            'blush': 'Blush',
+            'smile': 'Smile',
+            'wave': 'Wave',
+            'highfive': 'High Five',
+            'handhold': 'Hand Hold',
+            'nom': 'Nom',
+            'bite': 'Bite',
+            'glomp': 'Glomp',
+            'slap': 'Slap',
+            'kill': 'Kill',
+            'kick': 'Kick',
+            'happy': 'Happy',
+            'wink': 'Wink',
+            'poke': 'Poke',
+            'dance': 'Dance',
+            'cringe': 'Cringe'
+        };
+        return categoryNames[category] || category.charAt(0).toUpperCase() + category.slice(1);
+    }
+
     getApiEndpoint(category, style) {
-        let endpoint = this.apiEndpoints[category] || this.apiEndpoints.waifu;
+        if (!this.availableCategories.includes(category)) {
+            category = 'waifu'; // Default fallback
+        }
         
+        let endpoint = `https://api.waifu.pics/sfw/${category}`;
         endpoint += '?t=' + Date.now();
         
         return endpoint;
