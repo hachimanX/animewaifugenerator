@@ -1,78 +1,34 @@
+
 body {
-  background: #1a1a2e;
-  color: #f8f8ff;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Comic Neue', cursive;
+  background: linear-gradient(to right, #1f1c2c, #928dab);
+  color: #fff;
   text-align: center;
-  margin: 0;
-  padding: 0;
+  padding: 2rem;
 }
 
-header h1 {
-  font-size: 2.5rem;
-  margin-top: 2rem;
-  font-family: 'Courier New', Courier, monospace;
-  color: #f72585;
-}
-
-.banner {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-  margin: 2rem auto;
-  flex-wrap: wrap;
-}
-
-.ad-banner {
-  width: 200px;
-  height: auto;
-  border-radius: 12px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.6);
-}
-
-.filters {
-  margin: 1.5rem auto;
-  padding: 1rem;
-  background-color: #25264d;
-  border-radius: 10px;
-  display: inline-block;
-}
-
-.filters label {
-  margin: 0 10px;
-  font-weight: bold;
-  color: #ffd6ff;
-}
-
-.waifu-container {
-  margin: 2rem auto;
-}
-
-.waifu-container img {
-  width: 300px;
-  max-width: 90%;
-  border: 5px solid #7209b7;
+.container {
+  max-width: 700px;
+  margin: auto;
+  padding: 2rem;
   border-radius: 20px;
-  box-shadow: 0 0 15px #7209b7;
+  box-shadow: 0 0 20px rgba(255, 105, 180, 0.3);
+  background-color: rgba(0, 0, 0, 0.6);
 }
 
-#generate-btn {
-  margin-top: 1rem;
-  padding: 0.75rem 2rem;
+.button-group button {
+  margin: 0.5rem;
+  padding: 1rem 2rem;
   font-size: 1.2rem;
+  border-radius: 12px;
   border: none;
-  border-radius: 10px;
-  background: #3a0ca3;
+  background: #ff69b4;
   color: white;
   cursor: pointer;
 }
 
-#generate-btn:hover {
-  background: #4361ee;
-}
-
-footer {
-  margin-top: 3rem;
-  padding: 1rem;
-  font-size: 0.9rem;
-  color: #ccc;
+.waifu-box img {
+  margin-top: 2rem;
+  max-width: 100%;
+  border-radius: 1rem;
 }
