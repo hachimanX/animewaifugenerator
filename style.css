@@ -8,7 +8,7 @@
 
 body {
     font-family: 'Poppins', sans-serif;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #2c2c2c 0%, #1a1a1a 100%);
     color: #fff;
     min-height: 100vh;
     overflow-x: hidden;
@@ -209,13 +209,13 @@ body {
 
 .waifu-container {
     position: relative;
-    width: 400px;
-    height: 500px;
+    width: 500px;
+    height: 600px;
     margin: 0 auto 2rem;
     border-radius: 20px;
     overflow: hidden;
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
-    background: linear-gradient(45deg, #667eea, #764ba2);
+    background: linear-gradient(45deg, #2c2c2c, #3a3a3a);
 }
 
 .waifu-image {
@@ -534,8 +534,8 @@ body {
     }
 
     .waifu-container {
-        width: 300px;
-        height: 400px;
+        width: 400px;
+        height: 500px;
     }
 
     .action-buttons {
@@ -563,8 +563,8 @@ body {
     }
 
     .waifu-container {
-        width: 250px;
-        height: 350px;
+        width: 350px;
+        height: 450px;
     }
 
     .generate-btn, .download-btn, .share-btn {
@@ -866,7 +866,7 @@ body::before {
     left: 0;
     width: 120%;
     height: 120%;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #2c2c2c 0%, #1a1a1a 100%);
     z-index: -2;
     animation: parallaxMove 20s ease-in-out infinite;
 }

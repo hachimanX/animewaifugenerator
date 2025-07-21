@@ -3,14 +3,15 @@ class WaifuGenerator {
     constructor() {
         this.apiEndpoints = {
             waifu: 'https://api.waifu.pics/sfw/waifu',
-            maid: 'https://api.waifu.pics/sfw/waifu',
             neko: 'https://api.waifu.pics/sfw/neko',
-            bunny: 'https://api.waifu.pics/sfw/waifu',
-            school: 'https://api.waifu.pics/sfw/waifu',
-            uniform: 'https://api.waifu.pics/sfw/waifu',
-            casual: 'https://api.waifu.pics/sfw/waifu',
-            fantasy: 'https://api.waifu.pics/sfw/waifu',
-            ecchi: 'https://api.waifu.pics/nsfw/waifu'
+            shinobu: 'https://api.waifu.pics/sfw/shinobu',
+            megumin: 'https://api.waifu.pics/sfw/megumin',
+            cuddle: 'https://api.waifu.pics/sfw/cuddle',
+            hug: 'https://api.waifu.pics/sfw/hug',
+            kiss: 'https://api.waifu.pics/sfw/kiss',
+            pat: 'https://api.waifu.pics/sfw/pat',
+            smile: 'https://api.waifu.pics/sfw/smile',
+            wave: 'https://api.waifu.pics/sfw/wave'
         };
         
         this.currentImageUrl = '';
