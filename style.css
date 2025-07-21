@@ -209,7 +209,8 @@ body {
 
 .waifu-container {
     position: relative;
-    max-width: 1000px;
+    max-width: 90vw;
+    max-height: 80vh;
     width: 100%;
     margin: 0 auto 2rem;
     border-radius: 20px;
@@ -221,6 +222,9 @@ body {
 .waifu-image {
     width: 100%;
     height: auto;
+    max-width: 90vw;
+    max-height: 80vh;
+    object-fit: contain;
     display: block;
     transition: all 0.5s ease;
     image-rendering: -webkit-optimize-contrast;
