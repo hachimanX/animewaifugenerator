@@ -1,24 +1,124 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Anime Waifu Generator</title>
-  <link rel="stylesheet" href="style.css" />
-</head>
-<body>
-  <div class="container">
-    <h1>✨ Anime Waifu Generator ✨</h1>
-    <div class="button-group">
-      <button onclick="generateWaifu('chibi')">Chibi</button>
-      <button onclick="generateWaifu('mature')">Ecchi</button>
-      <button onclick="generateWaifu('hybrid')">Hybrid</button>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Anime Waifu Generator</title>
+    <style>
+      body {
+        margin: 0;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(to bottom right, #1f1f2e, #2a2a3b);
+        color: #fff;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-height: 100vh;
+      }
+
+      header {
+        padding: 1.5rem;
+        font-size: 2.2rem;
+        font-weight: bold;
+        color: #ff85c0;
+        text-shadow: 1px 1px 3px #000;
+      }
+
+      #waifu-container {
+        position: relative;
+        width: 300px;
+        height: 400px;
+        background: #1e1e2f;
+        border-radius: 20px;
+        box-shadow: 0 0 15px rgba(255, 133, 192, 0.5);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+      }
+
+      #waifu-image {
+        width: 100%;
+        height: 100%;
+        border-radius: 15px;
+        object-fit: cover;
+        transition: filter 0.5s ease, opacity 0.5s ease;
+        filter: blur(10px);
+        opacity: 0.7;
+      }
+
+      #waifu-image.loaded {
+        filter: blur(0);
+        opacity: 1;
+      }
+
+      #loading-text {
+        font-size: 1.2rem;
+        color: #ffacd6;
+        font-weight: bold;
+        margin-top: 1rem;
+        display: none;
+      }
+
+      #generate-btn {
+        margin-top: 1.5rem;
+        padding: 0.8rem 2rem;
+        font-size: 1rem;
+        background-color: #ff85c0;
+        color: #fff;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        box-shadow: 0 4px 10px rgba(255, 133, 192, 0.3);
+        transition: background-color 0.3s ease;
+      }
+
+      #generate-btn:hover {
+        background-color: #ff6fae;
+      }
+
+      #pod-banner {
+        margin-top: 2rem;
+      }
+
+      #pod-banner img {
+        max-width: 100%;
+        border-radius: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <header>Anime Waifu Generator</header>
+    <div id="waifu-container">
+      <img id="waifu-image" src="" alt="Your Waifu Appears!" />
     </div>
-    <div class="waifu-box">
-      <img id="waifuImage" src="default.jpg" alt="Your Waifu Appears Here" />
+    <div id="loading-text">Generating your waifu...</div>
+    <button id="generate-btn">Generate Waifu</button>
+
+    <div id="pod-banner">
+      <a href="https://yourstore.com" target="_blank">
+        <img src="https://yourstore.com/banner.jpg" alt="Shop Anime Merch" />
+      </a>
     </div>
-    <script src="script.js"></script>
-  </div>
-</body>
+
+    <script>
+      const image = document.getElementById("waifu-image");
+      const loadingText = document.getElementById("loading-text");
+
+      async function generateWaifu() {
+        loadingText.style.display = "block";
+        image.classList.remove("loaded");
+        image.src = "https://api.waifu.pics/sfw/waifu?" + new Date().getTime();
+      }
+
+      image.onload = () => {
+        image.classList.add("loaded");
+        loadingText.style.display = "none";
+      };
+
+      window.onload = generateWaifu;
+      document.getElementById("generate-btn").addEventListener("click", generateWaifu);
+    </script>
+  </body>
 </html>
