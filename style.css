@@ -209,8 +209,8 @@ body {
 
 .waifu-container {
     position: relative;
-    width: 500px;
-    height: 600px;
+    width: 1000px;
+    height: 1200px;
     margin: 0 auto 2rem;
     border-radius: 20px;
     overflow: hidden;
@@ -223,6 +223,11 @@ body {
     height: 100%;
     object-fit: cover;
     transition: all 0.5s ease;
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+    image-rendering: pixelated;
+    image-rendering: high-quality;
+    filter: contrast(1.1) saturate(1.1) brightness(1.05);
 }
 
 .loading-overlay {
@@ -534,8 +539,8 @@ body {
     }
 
     .waifu-container {
-        width: 400px;
-        height: 500px;
+        width: 800px;
+        height: 1000px;
     }
 
     .action-buttons {
@@ -563,8 +568,8 @@ body {
     }
 
     .waifu-container {
-        width: 350px;
-        height: 450px;
+        width: 700px;
+        height: 900px;
     }
 
     .generate-btn, .download-btn, .share-btn {
