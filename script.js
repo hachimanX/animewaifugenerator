@@ -1,4 +1,3 @@
-
 class WaifuGenerator {
     constructor() {
         this.availableCategories = [];
@@ -21,7 +20,7 @@ class WaifuGenerator {
 
         generateBtn.addEventListener('click', () => this.generateWaifu());
         shareBtn.addEventListener('click', () => this.shareImage());
-        
+
         waifuImage.addEventListener('load', () => this.onImageLoad());
         waifuImage.addEventListener('error', () => this.onImageError());
 
@@ -43,48 +42,74 @@ class WaifuGenerator {
 
     async generateWaifu() {
         if (this.isGenerating) return;
-        
+
         this.isGenerating = true;
         this.showLoading();
-        
+
         const category = document.getElementById('waifu-category').value;
         const style = document.getElementById('art-style').value;
-        
+
         try {
             const endpoint = this.getApiEndpoint(category, style);
             const response = await fetch(endpoint);
-            
+
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
-            
+
             const data = await response.json();
-            
-            if (data.url) {
-                this.currentImageUrl = data.url;
+            const result = data.results && data.results[0];
+
+            if (result && result.url) {
+                this.currentImageUrl = result.url;
                 const waifuImage = document.getElementById('waifu-image');
                 waifuImage.src = this.currentImageUrl;
+                this.updateArtistCredit(result);
             } else {
                 throw new Error('No image URL in response');
             }
-            
+
         } catch (error) {
             console.error('Error generating waifu:', error);
             this.showError('Failed to generate waifu. Please try again!');
         }
     }
 
+    updateArtistCredit(result) {
+        const credit = document.getElementById('artist-credit');
+        if (!credit) return;
+
+        if (result.artist_name && result.source_url) {
+            credit.innerHTML = `Art by <a href="${result.source_url}" target="_blank" rel="noopener">${result.artist_name}</a> · via <a href="https://nekos.best" target="_blank" rel="noopener">nekos.best</a>`;
+            credit.style.display = 'block';
+        } else if (result.anime_name) {
+            credit.textContent = `From: ${result.anime_name} · via nekos.best`;
+            credit.style.display = 'block';
+        } else {
+            credit.innerHTML = `Image via <a href="https://nekos.best" target="_blank" rel="noopener">nekos.best</a>`;
+            credit.style.display = 'block';
+        }
+    }
+
     async fetchAvailableCategories() {
         try {
+            // Categories available on the nekos.best API (v2).
+            // Image categories first, then animated GIF reaction categories.
             this.availableCategories = [
-                'waifu', 'neko', 'shinobu', 'megumin', 'bully', 'cuddle', 'cry', 'hug', 
-                'awoo', 'kiss', 'lick', 'pat', 'smug', 'bonk', 'yeet', 'blush', 'smile', 
-                'wave', 'highfive', 'handhold', 'nom', 'bite', 'glomp', 'slap', 'kill', 
-                'kick', 'happy', 'wink', 'poke', 'dance', 'cringe'
+                'waifu', 'neko', 'husbando', 'kitsune',
+                'cuddle', 'cry', 'hug', 'kiss', 'pat', 'smug', 'bonk', 'yeet',
+                'blush', 'smile', 'wave', 'highfive', 'handhold', 'nom', 'bite',
+                'slap', 'kick', 'happy', 'wink', 'poke', 'dance', 'laugh',
+                'baka', 'stare', 'think', 'pout', 'facepalm', 'shrug', 'sleep',
+                'tickle', 'thumbsup', 'angry', 'run', 'nod', 'nope', 'punch',
+                'handshake', 'lurk', 'peck', 'bored', 'yawn', 'sip', 'salute',
+                'tableflip', 'spin', 'shake', 'confused', 'shocked', 'feed',
+                'wag', 'teehee', 'bleh', 'nya', 'clap', 'kabedon', 'carry',
+                'lappillow', 'blowkiss', 'shoot'
             ];
         } catch (error) {
             console.error('Error fetching categories:', error);
-            this.availableCategories = ['waifu', 'neko', 'shinobu', 'megumin'];
+            this.availableCategories = ['waifu', 'neko', 'husbando', 'kitsune'];
         }
     }
 
@@ -106,15 +131,12 @@ class WaifuGenerator {
         const categoryNames = {
             'waifu': 'Random Waifu',
             'neko': 'Neko',
-            'shinobu': 'Shinobu',
-            'megumin': 'Megumin',
-            'bully': 'Bully',
+            'husbando': 'Husbando',
+            'kitsune': 'Kitsune',
             'cuddle': 'Cuddle',
             'cry': 'Cry',
             'hug': 'Hug',
-            'awoo': 'Awoo',
             'kiss': 'Kiss',
-            'lick': 'Lick',
             'pat': 'Pat',
             'smug': 'Smug',
             'bonk': 'Bonk',
@@ -126,15 +148,50 @@ class WaifuGenerator {
             'handhold': 'Hand Hold',
             'nom': 'Nom',
             'bite': 'Bite',
-            'glomp': 'Glomp',
             'slap': 'Slap',
-            'kill': 'Kill',
             'kick': 'Kick',
             'happy': 'Happy',
             'wink': 'Wink',
             'poke': 'Poke',
             'dance': 'Dance',
-            'cringe': 'Cringe'
+            'laugh': 'Laugh',
+            'baka': 'Baka',
+            'stare': 'Stare',
+            'think': 'Think',
+            'pout': 'Pout',
+            'facepalm': 'Facepalm',
+            'shrug': 'Shrug',
+            'sleep': 'Sleep',
+            'tickle': 'Tickle',
+            'thumbsup': 'Thumbs Up',
+            'angry': 'Angry',
+            'run': 'Run',
+            'nod': 'Nod',
+            'nope': 'Nope',
+            'punch': 'Punch',
+            'handshake': 'Handshake',
+            'lurk': 'Lurk',
+            'peck': 'Peck',
+            'bored': 'Bored',
+            'yawn': 'Yawn',
+            'sip': 'Sip',
+            'salute': 'Salute',
+            'tableflip': 'Table Flip',
+            'spin': 'Spin',
+            'shake': 'Shake',
+            'confused': 'Confused',
+            'shocked': 'Shocked',
+            'feed': 'Feed',
+            'wag': 'Wag',
+            'teehee': 'Teehee',
+            'bleh': 'Bleh',
+            'nya': 'Nya',
+            'clap': 'Clap',
+            'kabedon': 'Kabedon',
+            'carry': 'Carry',
+            'lappillow': 'Lap Pillow',
+            'blowkiss': 'Blow Kiss',
+            'shoot': 'Shoot'
         };
         return categoryNames[category] || category.charAt(0).toUpperCase() + category.slice(1);
     }
@@ -143,20 +200,19 @@ class WaifuGenerator {
         if (!this.availableCategories.includes(category)) {
             category = 'waifu'; // Default fallback
         }
-        
-        let endpoint = `https://api.waifu.pics/sfw/${category}`;
-        endpoint += '?t=' + Date.now();
-        
-        return endpoint;
+
+        // nekos.best is a free, actively maintained anime image API.
+        // (The previous provider, api.waifu.pics, shut down.)
+        return `https://nekos.best/api/v2/${category}`;
     }
 
     showLoading() {
         const loadingOverlay = document.getElementById('loading-overlay');
         const shareBtn = document.getElementById('share-btn');
-        
+
         loadingOverlay.classList.remove('hidden');
         shareBtn.style.display = 'none';
-        
+
         const loadingMessages = [
             'Generating your perfect waifu...',
             'Summoning anime magic...',
@@ -164,7 +220,7 @@ class WaifuGenerator {
             'Channeling kawaii energy...',
             'Crafting anime perfection...'
         ];
-        
+
         const loadingText = document.querySelector('.loading-text');
         loadingText.textContent = loadingMessages[Math.floor(Math.random() * loadingMessages.length)];
     }
@@ -178,9 +234,9 @@ class WaifuGenerator {
     onImageLoad() {
         this.hideLoading();
         const shareBtn = document.getElementById('share-btn');
-        
+
         shareBtn.style.display = 'flex';
-        
+
         const waifuContainer = document.querySelector('.waifu-container');
         waifuContainer.style.animation = 'none';
         waifuContainer.offsetHeight; // Trigger reflow
@@ -196,7 +252,7 @@ class WaifuGenerator {
         const loadingText = document.querySelector('.loading-text');
         loadingText.textContent = message;
         loadingText.style.color = '#ff4757';
-        
+
         setTimeout(() => {
             loadingText.style.color = '#ff6b9d';
         }, 3000);
@@ -205,7 +261,7 @@ class WaifuGenerator {
 
     shareImage() {
         if (!this.currentImageUrl) return;
-        
+
         if (navigator.share) {
             navigator.share({
                 title: 'Check out my generated anime waifu!',
@@ -240,14 +296,14 @@ class WaifuGenerator {
         document.body.appendChild(textArea);
         textArea.focus();
         textArea.select();
-        
+
         try {
             document.execCommand('copy');
             this.showNotification('Copied to clipboard! 📋');
         } catch (err) {
             console.error('Fallback copy failed:', err);
         }
-        
+
         document.body.removeChild(textArea);
     }
 
@@ -268,9 +324,9 @@ class WaifuGenerator {
             animation: slideInRight 0.3s ease-out;
             font-weight: 600;
         `;
-        
+
         document.body.appendChild(notification);
-        
+
         setTimeout(() => {
             notification.style.animation = 'slideOutRight 0.3s ease-out';
             setTimeout(() => {
@@ -288,12 +344,12 @@ style.textContent = `
         from { transform: translateX(100%); opacity: 0; }
         to { transform: translateX(0); opacity: 1; }
     }
-    
+
     @keyframes slideOutRight {
         from { transform: translateX(0); opacity: 1; }
         to { transform: translateX(100%); opacity: 0; }
     }
-    
+
     @keyframes successPulse {
         0% { transform: scale(1); }
         50% { transform: scale(1.05); }
@@ -311,18 +367,18 @@ document.addEventListener('DOMContentLoaded', () => {
 function createParticles() {
     const container = document.getElementById('particles-container');
     if (!container) return;
-    
+
     const particleCount = window.innerWidth < 768 ? 15 : 30;
-    
+
     for (let i = 0; i < particleCount; i++) {
         const particle = document.createElement('div');
         particle.className = 'particle';
-        
+
         const size = Math.random() * 8 + 4;
         const left = Math.random() * 100;
         const delay = Math.random() * 6;
         const duration = Math.random() * 4 + 4;
-        
+
         particle.style.cssText = `
             width: ${size}px;
             height: ${size}px;
@@ -330,7 +386,7 @@ function createParticles() {
             animation-delay: ${delay}s;
             animation-duration: ${duration}s;
         `;
-        
+
         container.appendChild(particle);
     }
 }
@@ -340,7 +396,7 @@ function initAdvancedAnimations() {
         threshold: 0.1,
         rootMargin: '0px 0px -50px 0px'
     };
-    
+
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -348,15 +404,15 @@ function initAdvancedAnimations() {
             }
         });
     }, observerOptions);
-    
+
     document.querySelectorAll('.generator-section, .pod-banner-section, .donation-section, .contact-banner-section').forEach(section => {
         observer.observe(section);
     });
-    
+
     document.addEventListener('mousemove', (e) => {
         const mouseX = e.clientX / window.innerWidth;
         const mouseY = e.clientY / window.innerHeight;
-        
+
         const waifuContainer = document.querySelector('.waifu-container');
         if (waifuContainer) {
             const moveX = (mouseX - 0.5) * 20;
@@ -364,7 +420,7 @@ function initAdvancedAnimations() {
             waifuContainer.style.transform = `translate(${moveX}px, ${moveY}px)`;
         }
     });
-    
+
     let hue = 0;
     setInterval(() => {
         hue = (hue + 0.5) % 360;
@@ -375,7 +431,7 @@ function initAdvancedAnimations() {
 document.addEventListener('keydown', (e) => {
     const konamiCode = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65];
     if (!window.konamiProgress) window.konamiProgress = 0;
-    
+
     if (e.keyCode === konamiCode[window.konamiProgress]) {
         window.konamiProgress++;
         if (window.konamiProgress === konamiCode.length) {
